@@ -1,0 +1,45 @@
+body {
+	font-family: 'Malgun Gothic', Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size:11pt;
+}
+textarea {
+    width: 800px;
+    height: 100px;
+    margin: 10px 10px 10px 10px;
+    padding: 5px;
+}
+input {
+    width:800px;
+    margin: 10px;
+    padding: 5px;
+}
+input.input1 {
+    width:420px;
+    margin: 10px 0px 10px 10px;
+    padding: 5px;
+}
+input.input2 {
+    width:40px;
+    margin: 10px 0px;
+    padding: 5px;
+}
+select {
+    width: 195px;
+    margin: 10px 0px;
+    padding: 5px;
+}
+div {
+    width: 810px;
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+.remove-btn {
+    background-color: white; /* Red */
+    color: red;
+    border: none;
+    cursor: pointer;
+}
+li {
+    margin: 0px;
+    padding: 0px;
+}

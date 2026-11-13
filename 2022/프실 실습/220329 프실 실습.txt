@@ -1,0 +1,41 @@
+4번
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+	int age; 
+	printf("나이를 입력하시오:"); 
+	scanf("%d", &age);
+	age += 1;
+	printf("내년이면 %d살이 되시는군요.", age);
+	return 0;
+}
+
+5번
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+	int jsu1, jsu2, jsu3;
+	float avg; 
+	printf("정수를 입력하시오:"); 
+	scanf("%d", &jsu1);
+	printf("정수를 입력하시오:"); 
+	scanf("%d", &jsu2);
+	printf("정수를 입력하시오:"); 
+	scanf("%d", &jsu3);
+	avg=(jsu1 + jsu2 + jsu3)*1.0 /3 ;
+	printf("평균은 %.2f입니다.", avg); // .2f : 소수점 2자리까지만 나타냄 
+	return 0;
+}
+
+6번
+#include <stdio.h>
+int main(int argc, char *argv[]) {
+	int ang1, ang2, ang3; 
+	printf("삼각형의 첫번째 내각을 입력하세요:"); 
+	scanf("%d", &ang1);
+	printf("삼각형의 두번째 내각을 입력하세요:"); 
+	scanf("%d", &ang2);
+	ang3 = 180-ang1-ang2;
+	printf("세번째 각은 %d도 입니다.", ang3);
+	return 0;
+}

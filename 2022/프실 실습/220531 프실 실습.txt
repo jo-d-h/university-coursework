@@ -1,0 +1,127 @@
+p.263 예제3
+#include <stdio.h>
+
+#define	STUDENTS 5
+
+int main(void) 
+{
+	int scores[STUDENTS];
+	int sum = 0;
+	int i;
+	float avg;
+	
+	for(i=0; i < STUDENTS; i++)
+	{
+		printf("학생들의 성적을 입력하세요 : ");
+		scanf("%d", &scores[i]);
+		sum += scores[i];
+	}	
+	
+	printf("<<< 학생 성적 >>> \n");
+	for (i = 0; i< STUDENTS; i++)
+		printf("[%d] %d\n", i+1, scores[i]);
+	
+	avg = (float)sum / STUDENTS; //형변환 = type casting 
+	printf("학생들의 평균 성적은 %.2f점 입니다.\n", avg);
+	
+	return 0;
+}
+
+p.271 가장 싼 물건
+#include <stdio.h>
+
+#define	NO 10
+
+int main(void) 
+{
+	int price[NO];
+	int i, min;
+	
+	srand(time(NULL));
+	
+	for(i = 0; i < NO; i++)
+	{
+		price[i] = rand();
+		printf("[%d] %d원\n", i+1, price[i]);
+	}
+	
+	min = price[0];
+	
+	for(i = 1; i < NO; i++)
+	{
+		if (price[i] < min)
+			min = price[i];
+	}
+	
+	printf("최저가는 %d원 입니다.", min);
+	
+	return 0;
+}
+
+p.271 가장 비싼 물건
+#include <stdio.h>
+
+#define	NO 10
+
+int main(void) 
+{
+	int price[NO];
+	int i, max;
+	
+	srand(time(NULL));
+	
+	for(i = 0; i < NO; i++)
+	{
+		price[i] = rand();
+		printf("[%d] %d원\n", i+1, price[i]);
+	}
+	
+	max = price[0];
+	
+	for(i = 1; i < NO; i++)
+	{
+		if (price[i] > max)
+			max = price[i];
+	}
+	
+	printf("최고가는 %d원 입니다.", max);
+	
+	return 0;
+}
+
+p.273 특정값 찾기
+#include <stdio.h>
+
+#define	NO 10
+
+int main(void) 
+{
+	int price[NO];
+	int i, max, key;
+	
+	srand(time(NULL));
+	
+	for(i = 0; i < NO; i++)
+	{
+		price[i] = rand();
+		printf("[%d] %d\n", i+1, price[i]);
+	}
+
+	printf("탐색할 값을 입력하시오 : ");
+	scanf("%d", &key);
+	
+	for(i = 0; i < NO; i++)
+	{
+		if (key == price[i]) {
+			printf("탐색을 성공했습니다!");
+			break;
+	}
+	
+		else
+		{
+			printf("탐색을 실패했습니다!");
+			break;
+		}
+	}
+	return 0;
+}

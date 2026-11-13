@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int main() {
+	int costTang = 12000; //탕수육 가격 
+	int noTang; //탕수육 주문 수 
+	int costJJa = 7000; //짜장면 가격 
+	int noJJa; //짜장면 주문 수 
+	int totalCost; //총 식사 비용 
+	//답시작 , 위 1-9라인은 수정 금지 
+	
+	printf("탕수육 주문수를 입력하세요:");
+	scanf("%d",&noTang);
+	printf("짜장면 주문수를 입력하세요:");
+	scanf("%d",&noJJa);
+	totalCost = costTang * noTang + costJJa * noJJa; 
+	
+	printf("총비용:%d\n", totalCost);
+	
+	return 0;
+}

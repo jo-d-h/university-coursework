@@ -1,0 +1,73 @@
+body {
+        font-family: 'Jua', sans-serif;
+        font-weight: normal;
+        background-image: url('login-background.png'); 
+        background-repeat: repeat;
+        background-size: 760px 760px;
+        font-size: 30px;
+        }
+
+.review-box{
+    border: 2px #007bff solid;
+    border-radius: 10px;
+    width: 600px;
+    height: auto;
+    margin: auto;
+    padding-left: 15px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,1);
+}
+
+.title{
+    font-size: 50px;
+}
+
+.link{
+    font-size: 20px;
+    width: auto;
+
+}
+
+.link a{
+    text-decoration: none;
+}
+
+button, select, input{
+    font-size: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+/* --- 별점 스타일 --- */
+.star-rating {
+    display: flex;
+    font-size: 30px;
+    color: #ccc;
+    width: fit-content;
+    user-select: none;
+    margin-top: -25px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.star-rating .star {
+    margin-right: 5px;
+    transition: color 0.2s;
+}
+
+.star-rating .star:last-child {
+    margin-right: 0;
+}
+
+/* 선택된 별의 색상 */
+.star-rating .star.selected {
+    color: #ffc107; /*별 */
+}
+
+textarea {
+    width: 96%;
+    margin: auto;
+    border: 2px #007bff solid;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    font-size: 20px;
+    font-family: 'Jua', sans-serif;
+}

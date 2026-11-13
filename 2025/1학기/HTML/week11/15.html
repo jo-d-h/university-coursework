@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15 Puzzle</title>
+  <style>
+    body {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .input-interface {
+        width: 362px;
+        margin-bottom: 10px;
+    }
+
+    .button-row {
+        display: flex;
+        gap: 20px;
+        justify-content: flex-start;
+        margin-bottom: 12px;
+    }
+
+    .button-row button {
+        width: 80px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .move-counter {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .move-counter label {
+    font-size: 14px;
+    }
+
+    .move-counter input {
+        width: 80px;
+        height: 20px;
+        text-align: right;
+        font-size: 14px;
+    }
+
+    .puzzle-container {
+        display: grid;
+        width: 336px;
+        
+        grid-template-columns: repeat(4, 75px);
+        grid-template-rows: repeat(4, 75px);
+        gap: 12px;
+        background-color: #ffffcc;
+        padding: 12px;
+        border: 1px solid black;
+    }
+    .puzzle-piece {
+        width: 75px;
+        height: 75px;
+        background-color: #e6faff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+        border: 1px solid black;
+    }
+    
+  </style>
+</head>
+<body>
+    <div class="input-interface">
+    <div class="button-row">
+        <button id="shuffleBtn">SHUFFLE</button>
+        <button id="undoBtn">UNDO</button>
+        <button id="redoBtn">REDO</button>
+        <button disabled>SOLVE</button>
+    </div>
+
+    <div class="move-counter">
+        <label>이동횟수</label>
+        <input id="moveCounter" type="text" value="0" readonly>
+    </div>
+  </div>
+
+  <div class="puzzle-container" id="puzzleContainer"></div>
+  <script>
+        const puzzleContainer = document.getElementById('puzzleContainer');
+        const size = 4; // 4x4 퍼즐
+        const numbers = Array.from({length: size * size}, (_, i) => i); // 숫자 배열 생성
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const moveCounterInput = document.getElementById('moveCounter');
+        const history = [];  // 이동 기록 저장
+        const undoBtn = document.getElementById('undoBtn');
+        const redoHistory = [];
+        const redoBtn = document.getElementById('redoBtn');
+
+        function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        }
+
+        function createPuzzle() {
+            shuffle(numbers);
+            numbers.forEach((number, index) => {
+                const piece = document.createElement('div');
+                piece.classList.add('puzzle-piece');
+                piece.textContent = number || ''; // 빈 칸은 숫자 대신 공백으로 표시
+                piece.addEventListener('click', () => movePiece(index));
+                puzzleContainer.appendChild(piece);
+            });
+        }
+
+        function movePiece(index) {
+            const emptyIndex = numbers.indexOf(0);
+            if (index === emptyIndex) 
+                return; // 클릭한 곳이 빈 칸인 경우
+
+            const rowDiff = Math.abs(Math.floor(emptyIndex / size) - Math.floor(index / size));
+            const colDiff = Math.abs((emptyIndex % size) - (index % size));
+            if (rowDiff + colDiff !== 1) 
+                return; // 이웃한 칸이 아닌 경우
+
+            history.push(numbers.slice());
+            redoHistory.length = 0;  // REDO 기록 초기화
+
+            [numbers[emptyIndex], numbers[index]] = [numbers[index], numbers[emptyIndex]];
+
+            // 이동횟수 1 증가
+            moveCounterInput.value = Number(moveCounterInput.value) + 1;
+
+        refreshPuzzle();
+        }
+
+        function refreshPuzzle() {
+            puzzleContainer.innerHTML = ''; // 기존 퍼즐 비우기
+
+            numbers.forEach((number, index) => {
+                const piece = document.createElement('div');
+                piece.classList.add('puzzle-piece');
+                piece.textContent = number || '';
+                piece.addEventListener('click', () => movePiece(index));
+                puzzleContainer.appendChild(piece);
+            });
+
+                if (isSolved()) 
+                    alert('Congratulations! You solved the puzzle!');
+        }
+
+        function isSolved() {
+            return numbers.every((number, index) => number === 0 || number === index + 1);
+        }
+
+        shuffleBtn.addEventListener('click', () => {
+            shuffle(numbers);
+            moveCounterInput.value = 0;  // 이동횟수 초기화
+            history.length = 0;
+            redoHistory.length = 0;
+            refreshPuzzle();
+        });
+
+        //UNDO(이전 상태로 되돌리기)
+        undoBtn.addEventListener('click', () => {
+            if (history.length === 0) 
+                return;  // 이전 이동 없으면 무시
+
+            // 현재 상태를 redoHistory에 저장
+            redoHistory.push(numbers.slice());    
+
+            // 이전 상태 복원
+            const prevState = history.pop();
+            numbers.splice(0, numbers.length, ...prevState);
+
+            // 이동횟수 1 감소
+            moveCounterInput.value = Math.max(0, Number(moveCounterInput.value) - 1);
+
+            refreshPuzzle();
+        });
+
+        //REDO(다시 복원)
+        redoBtn.addEventListener('click', () => {
+            if (redoHistory.length === 0) 
+                return;
+
+            // 현재 상태를 history에 저장 (UNDO를 위해)
+            history.push(numbers.slice());
+
+            // redoHistory에서 상태 복원
+            const nextState = redoHistory.pop();
+            numbers.splice(0, numbers.length, ...nextState);
+
+            moveCounterInput.value = Number(moveCounterInput.value) + 1;
+
+            refreshPuzzle();
+        });
+
+
+        createPuzzle(); // 퍼즐 생성
+  </script>
+
+  <p style="margin-left: 10px; color: rgb(53, 170, 160); font-size: 20px;">20223156 조동현</p>
+</body>
+</html>

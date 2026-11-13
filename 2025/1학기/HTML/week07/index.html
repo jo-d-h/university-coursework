@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DH's Calculator</title>
+
+        <style>
+            @media (max-width:490px)
+            {
+                div.empty {display: none;}
+                div.vertical {display: block;}
+                div.horizontal {display: none;}
+            }
+            @media (max-width:330px)
+            {
+                div.empty {display: block;}
+                div.vertical {display: none;}
+                div.horizontal {display: none;}
+            }
+            @media (min-width:491px)
+            {
+                div.empty {display: none;}
+                div.vertical {display: none;}
+                div.horizontal {display: block;}
+            }
+            
+            #Wrapping
+            {
+                display: table-cell;
+                background-color: rgb(245, 245, 245);
+                padding: 10px;
+                border: 1px solid gray;
+                border-radius: 10px;
+                text-align: center;
+                margin: auto;
+            }
+
+            #display1, #display2
+            {
+                width: 100%;
+                height: 45px;
+                border: 1px solid gray;
+                font-size: 1.5em;
+                color: black;
+                background-color: white;
+                text-align: right;
+                margin-bottom: 3px;
+                display: inline-block;
+                line-height: 45px;
+                border-radius: 8px;
+            }
+
+            table 
+            {
+                table-layout: fixed;
+                border-collapse : collapse;
+                margin: 2px;
+            }
+
+            td
+            {
+                padding: 2px;
+                text-align: center;
+            }
+
+            button 
+            {
+                border: 1px solid rgb(201, 201, 201);
+                background-color: white;
+                color: black;
+                text-align: center;
+                font-size: 22px;
+                font-weight: 500;
+                border-radius: 8px;
+                width : 100%;
+                height : 47px;
+                margin: 1px;
+                cursor: pointer;
+            }
+
+            button.num
+            {
+                font-weight: 700;
+            }
+            button.num:hover 
+            {
+            background-color: #d9d9d9;
+            }
+
+            button.num:active 
+            {
+            background-color: #bfbfbf;
+            }
+
+            button.operator
+            {
+                background-color: #FFD700;
+                font-weight: 700;
+            }
+
+            button.function
+            {
+                background-color: #e9e9e9;
+            }
+
+            button.tax
+            {
+                background-color: #e9e9e9;
+                font-size : 13px;
+                font-weight: 700;
+            }
+
+            button.operator:hover
+            {
+                background-color: #f7ce2f;
+            }
+
+            button.function:hover
+            {
+                background-color: #d9d9d9;
+            }
+
+            button.tax:hover
+            {
+                background-color: #d9d9d9;
+            }
+
+            button.operator:active
+            {
+                background-color: #e6bc00;
+            }
+
+            button.function:active
+            {
+             background-color: #bfbfbf;
+            }
+
+            button.tax:active
+            {
+             background-color: #bfbfbf;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <div class="empty">
+            <p>화면 크기가 너무 작아 표시할 수 없습니다.</p>
+        </div>
+        
+        <div class="vertical">
+            <div id="Wrapping">
+                <table width="300">
+                    <tr>
+                        <td colspan = "4" class="result" align = right>
+                            <span id = "display1">0</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><button class= "tax" onclick="taxplusButton()">부가세+</button></td>
+                        <td><button class= "tax" onclick="taxminusButton()">부가세-</button></td>
+                        <td><button class= "tax" onclick="salarytaxButton()">월급</button></td>
+                        <td><button class= "tax" onclick="savingsButton()">적금</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class= "function" onclick="acButton()">AC</button></td>
+                        <td><button class= "function" onclick="sqrtButton()">√x</button></td>
+                        <td><button class= "function" onclick="percentButton()">%</button></td>
+                        <td><button class = "operator" onclick="divideButton()">÷</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class = "num" onclick="numberButton(7)">7</button></td>
+                        <td><button class = "num" onclick="numberButton(8)">8</button></td>
+                        <td><button class = "num" onclick="numberButton(9)">9</button></td>
+                        <td><button class = "operator" onclick="multiplyButton()">×</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class = "num" onclick="numberButton(4)">4</button></td>
+                        <td><button class = "num" onclick="numberButton(5)">5</button></td>
+                        <td><button class = "num" onclick="numberButton(6)">6</button></td>
+                        <td><button class = "operator" onclick="minusButton()">-</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class = "num" onclick="numberButton(1)">1</button></td>
+                        <td><button class = "num" onclick="numberButton(2)">2</button></td>
+                        <td><button class = "num" onclick="numberButton(3)">3</button></td>
+                        <td><button class = "operator" onclick="plusButton()">+</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class = "num" onclick="numberButton(0)">0</button></td>
+                        <td><button class = "num" onclick="dotButton()">.</button></td>
+                        <td><button class = "num" onclick="signChange()">+/−</button></td>
+                        <td><button class = "operator" onclick="equalButton()">=</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class= "function" onclick="piButton()">π</button></td>
+                        <td><button class= "function" onclick="squareButton()">x<sup>2</sup></button></td>
+                        <td><button class= "function" onclick="round2Button()">R2</button></td>
+                        <td><button class= "function" onclick="round0Button()">R0</button></td>
+                    </tr>
+                </table>
+
+                <p style="text-align:right; font-size:13px">
+                    Powered by <b>20223156 <span style="color:#7bc8f8">DONGHYUN CHO</span></b>
+                </p>
+            </div>
+        <br>
+        <b>추가한 코드 설명</b>
+        <ol>
+            <li>부가세+ : 계산기에 입력 된 값이 부가가치세(10%)를 추가한 값으로 변경됩니다. </li>
+            <li>부가세- : 계산기에 입력 된 값이 부가가치세(10%)를 제외한 값으로 변경됩니다. </li>
+            <li>월급 : 계산기에 입력 된 값이 4대보험료(13.59%)를 제외한 값으로 변경됩니다. </li>
+            <li>적금 : 계산기에 입력 된 값이 세금(소득세 + 주민세 15.4%)를 제외한 값으로 변경됩니다. </li>
+        </ol>
+        <p>단, 추가한 모든 기능은 입력값이 양수(+)일 때만 실행됩니다. 음수(-)일 경우 'InVaild'를 표출하며 정상 동작하지 않습니다.</p>
+        </div>
+            
+        </div>
+
+        <div class="horizontal">
+            <div id="Wrapping">
+                <table width="450">
+                    <tr>
+                        <td colspan = "7" class="result" align = right>
+                            <span id = "display2">0</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><button class= "tax" onclick="taxplusButton()">부가세+</button></td>
+                        <td><button class= "tax" onclick="taxminusButton()">부가세-</button></td>
+                        <td><button class = "num" onclick="numberButton(7)">7</button></td>
+                        <td><button class = "num" onclick="numberButton(8)">8</button></td>
+                        <td><button class = "num" onclick="numberButton(9)">9</button></td>
+                        <td><button class = "operator" onclick="divideButton()">÷</button></td>
+                        <td><button class= "function" onclick="round2Button()">R2</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class= "tax" onclick="salarytaxButton()">월급</button></td>
+                        <td><button class= "tax" onclick="savingsButton()">적금</button></td>
+                        <td><button class = "num" onclick="numberButton(4)">4</button></td>
+                        <td><button class = "num" onclick="numberButton(5)">5</button></td>
+                        <td><button class = "num" onclick="numberButton(6)">6</button></td>
+                        <td><button class = "operator" onclick="multiplyButton()">×</button></td>
+                        <td><button class= "function" onclick="round0Button()">R0</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class= "function" onclick="piButton()">π</button></td>
+                        <td><button class= "function" onclick="squareButton()">x<sup>2</sup></button></td>
+                        <td><button class = "num" onclick="numberButton(1)">1</button></td>
+                        <td><button class = "num" onclick="numberButton(2)">2</button></td>
+                        <td><button class = "num" onclick="numberButton(3)">3</button></td>
+                        <td><button class = "operator" onclick="minusButton()">-</button></td>
+                        <td><button class= "function" onclick="acButton()">AC</button></td>
+                    </tr>
+
+                    <tr>
+                        <td><button class= "function" onclick="sqrtButton()">√x</button></td>
+                        <td><button class= "function" onclick="percentButton()">%</button></td>
+                        <td><button class = "num" onclick="numberButton(0)">0</button></td>
+                        <td><button class = "num" onclick="dotButton()">.</button></td>
+                        <td><button class = "num" onclick="signChange()">+/−</button></td>
+                        <td><button class = "operator" onclick="plusButton()">+</button></td>
+                        <td><button class = "operator" onclick="equalButton()">=</button></td>
+                    </tr>
+                </table>
+
+                <p style="text-align:right; font-size:13px">
+                    Powered by <b>20223156 <span style="color:#7bc8f8">DONGHYUN CHO</span></b>
+                </p>
+            </div>
+
+        <br>
+        <b>추가한 코드 설명</b>
+        <ol>
+            <li>부가세+ : 계산기에 입력 된 값이 부가가치세(10%)를 추가한 값으로 변경됩니다. </li>
+            <li>부가세- : 계산기에 입력 된 값이 부가가치세(10%)를 제외한 값으로 변경됩니다. </li>
+            <li>월급 : 계산기에 입력 된 값이 4대보험료(13.59%)를 제외한 값으로 변경됩니다. </li>
+            <li>적금 : 계산기에 입력 된 값이 세금(소득세 + 주민세 15.4%)를 제외한 값으로 변경됩니다. </li>
+        </ol>
+        <p>단, 추가한 모든 기능은 입력값이 양수(+)일 때만 실행됩니다. 음수(-)일 경우 'InVaild'를 표출하며 정상 동작하지 않습니다.</p>
+        </div>
+    </body>
+
+    <script>
+        let curValue = 0;
+        let operator = '';
+
+        function numberButton(num) 
+        {
+            if(document.getElementById("display1").innerHTML === "0") 
+            {
+                document.getElementById("display1").innerHTML = num;
+            } 
+
+            else 
+            {
+                document.getElementById("display1").innerHTML += num;
+            }
+
+            
+            if(document.getElementById("display2").innerHTML === "0") 
+            {
+                document.getElementById("display2").innerHTML = num;
+            } 
+            else 
+
+            {
+                document.getElementById("display2").innerHTML += num;
+            }
+        }
+
+        function plusButton()
+        {
+            curValue = parseFloat(document.getElementById("display2").innerHTML);
+            document.getElementById("display1").innerHTML = 0;
+            document.getElementById("display2").innerHTML = 0;
+            operator = '+';
+        }
+
+        function minusButton()
+        {
+            curValue = parseFloat(document.getElementById("display2").innerHTML);
+            document.getElementById("display1").innerHTML = 0;
+            document.getElementById("display2").innerHTML = 0;
+            operator = '-';
+        }
+
+        function multiplyButton() 
+        {
+            curValue = parseFloat(document.getElementById("display2").innerHTML);
+            document.getElementById("display1").innerHTML = 0;
+            document.getElementById("display2").innerHTML = 0;
+            operator = '*';
+        }
+
+        function divideButton() 
+        {
+            curValue = parseFloat(document.getElementById("display2").innerHTML);
+            document.getElementById("display1").innerHTML = 0;
+            document.getElementById("display2").innerHTML = 0;
+            operator = '/';
+        }
+
+        function equalButton()
+        {
+            if(operator == '+')
+            {
+                curValue += parseFloat(document.getElementById('display2').innerHTML);
+                document.getElementById('display2').innerHTML = curValue;
+                document.getElementById('display1').innerHTML = curValue;
+            }
+
+            else if (operator == '-')
+            {
+                curValue -= parseFloat(document.getElementById('display2').innerHTML);
+                document.getElementById('display2').innerHTML = curValue;
+                document.getElementById('display1').innerHTML = curValue;
+            }
+
+            else if (operator == '/')
+            {
+                curValue /= parseFloat(document.getElementById('display2').innerHTML);
+                document.getElementById('display2').innerHTML = curValue;
+                document.getElementById('display1').innerHTML = curValue;
+            }
+
+            else if (operator == '*')
+            {
+                curValue *= parseFloat(document.getElementById('display2').innerHTML);
+                document.getElementById('display2').innerHTML = curValue;
+                document.getElementById('display1').innerHTML = curValue;
+            }
+        }
+
+        function acButton() 
+        {
+            curValue = 0;
+            operator = '';
+            document.getElementById("display1").innerHTML = 0;
+            document.getElementById("display2").innerHTML = 0;
+        }
+
+        function dotButton() 
+        {
+            if(!document.getElementById("display1").innerHTML.includes(".")) 
+            {
+                document.getElementById("display1").innerHTML += ".";
+            }
+            if(!document.getElementById("display2").innerHTML.includes(".")) 
+            {
+                document.getElementById("display2").innerHTML += ".";
+            }
+        }
+
+        function signChange() 
+        {
+            let v = -1 * parseFloat(document.getElementById("display1").innerHTML);
+
+            document.getElementById("display1").innerHTML = v;
+            document.getElementById("display2").innerHTML = v;
+        }
+
+        function piButton() 
+        {
+            document.getElementById("display1").innerHTML = Math.PI.toFixed(10);
+            document.getElementById("display2").innerHTML = Math.PI.toFixed(10);
+        }
+
+        function squareButton() 
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML);
+            let v2 = parseFloat(document.getElementById("display2").innerHTML);
+
+            document.getElementById("display1").innerHTML = v1 * v1;
+            document.getElementById("display2").innerHTML = v2 * v2;
+        }
+
+        function sqrtButton() 
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML);
+            let v2 = parseFloat(document.getElementById("display2").innerHTML);
+
+            document.getElementById("display1").innerHTML = Math.sqrt(v1);
+            document.getElementById("display2").innerHTML = Math.sqrt(v2);
+        }
+
+        function percentButton() 
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML) / 100;
+            let v2 = parseFloat(document.getElementById("display2").innerHTML) / 100;
+
+            document.getElementById("display1").innerHTML = v1;
+            document.getElementById("display2").innerHTML = v2;
+        }
+
+        function round0Button() 
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML);
+            let v2 = parseFloat(document.getElementById("display2").innerHTML);
+
+            document.getElementById("display1").innerHTML = Math.round(v1);
+            document.getElementById("display2").innerHTML = Math.round(v2);
+        }
+
+        function round2Button() 
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML);
+            let v2 = parseFloat(document.getElementById("display2").innerHTML);
+
+            document.getElementById("display1").innerHTML = v1.toFixed(2);
+            document.getElementById("display2").innerHTML = v2.toFixed(2);
+        }
+
+        function salarytaxButton() //월급 세전 -> 세후(실수령액) 계산 버튼(4대보험 13.59%)
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML);
+            let v2 = parseFloat(document.getElementById("display2").innerHTML);
+            let taxRate = 0.1359 //(부가가치세 10%)
+            document.getElementById("display1").innerHTML = v1 - (v1 * taxRate);
+            document.getElementById("display2").innerHTML = v2 - (v2 * taxRate);
+
+            if (v1 - (v1 * taxRate) || v2 - (v2 * taxRate) < 0)
+            {
+                document.getElementById("display1").innerHTML = "InVaild";
+                document.getElementById("display2").innerHTML = "InVaild";
+            }
+        }
+
+
+        function savingsButton() //적금의 소득세 제외한 실 수령액 버튼
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML);
+            let v2 = parseFloat(document.getElementById("display2").innerHTML);
+
+            let taxRate = 0.154 //(이자소득세 14% + 주민세 1.4%(소득세의 10%))
+            document.getElementById("display1").innerHTML = v1 - (v1 * taxRate);
+            document.getElementById("display2").innerHTML = v2 - (v2 * taxRate);
+
+            if (v1 - (v1 * taxRate) || v2 - (v2 * taxRate) < 0)
+            {
+                document.getElementById("display1").innerHTML = "InVaild";
+                document.getElementById("display2").innerHTML = "InVaild";
+            }
+        }
+
+        function taxplusButton() //세율(부가가치세) 계산 버튼(+10%)
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML);
+            let v2 = parseFloat(document.getElementById("display2").innerHTML);
+
+            let taxRate = 0.10 //(부가가치세 10%)
+            document.getElementById("display1").innerHTML = v1 + (v1 * taxRate);
+            document.getElementById("display2").innerHTML = v2 + (v2 * taxRate);
+
+            if (v1 - (v1 * taxRate) || v2 - (v2 * taxRate) < 0)
+            {
+                document.getElementById("display1").innerHTML = "InVaild";
+                document.getElementById("display2").innerHTML = "InVaild";
+            }
+        }
+
+        function taxminusButton() //세율(부가가치세) 계산 버튼(-10%)
+        {
+            let v1 = parseFloat(document.getElementById("display1").innerHTML);
+            let v2 = parseFloat(document.getElementById("display2").innerHTML);
+
+            let taxRate = 0.10 //(부가가치세 10%)
+            document.getElementById("display1").innerHTML = v1 - (v1 * taxRate);
+            document.getElementById("display2").innerHTML = v2 - (v2 * taxRate);
+
+            if (v1 - (v1 * taxRate) || v2 - (v2 * taxRate) < 0)
+            {
+                document.getElementById("display1").innerHTML = "InVaild";
+                document.getElementById("display2").innerHTML = "InVaild";
+            }
+        }
+    </script>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>전체 랭킹</title>
+  <link rel="stylesheet" href="shopCss.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="side-menu" id="side-menu">
+        <a href="#" id="back-link">⬅️ 이전 페이지로</a>
+        </br>
+        <a href="index.php">홈🏠</a>
+        </br>
+        <a href="ranking.html">랭킹👑</a>
+        </br>
+        <button class="close-btn" id="close-btn">&times;</button>
+    </div>
+
+  <table class="header-table">
+        <tr>
+            <td class="header-burgerBox">
+            <div class="burger-btn" id="burger-btn">
+                &#9776; </div>
+            </td>
+            
+            <td class="header-logoBox">
+                <img src="deulogo.png" alt="동의대로고" class="header-logo">
+            </td>
+
+            <td class="header-title" onclick="location.href='index.php'">
+                <p>밥도둑</p>
+            </td>
+
+            <td class="user-menu" id="user-menu">
+                 <img src="사용자.png" alt="사용자" class="user-logo"> 
+            </td>
+        </tr>
+    </table>
+  
+  <div class="box">
+  <div class="title">전체 랭킹👑</div>
+
+  <div class="ranking-toggle">
+    <button id="best-btn" class="ranking-active">맛집 랭킹</button>
+    <button id="solo-btn" class="ranking-inactive">혼밥 랭킹</button>
+  </div>
+
+  <div id="ranking-container" ></div>
+
+  </div>
+
+    <div class="copyright-section">
+        <p>팀원: 20223123 이승환, 20213025 이현승, 20223156 조동현</p>
+        <p>프로젝트: 밥도둑</p>
+    </div>
+
+  <script>
+    let rankingData = {};
+
+    fetch('getRanking.php')
+      .then(res => res.json())
+      .then(data => {
+        rankingData = data;
+        renderRanking('best');
+      });
+
+    function renderRanking(type) {
+      const container = document.getElementById('ranking-container');
+      container.innerHTML = '';
+
+      rankingData[type].forEach((shop, index) => {
+        const div = document.createElement('div');
+        div.className = 'ranking-card';
+
+        div.innerHTML = `
+          <a href="shop_detail.php?id=${shop.id}" style="text-decoration: none; color: inherit ;">
+            <div className = 'ranking-card' style="display: flex; gap: 20px;">
+
+              <div class="ranking-tier">${index + 1}</div>
+
+
+              <div  class = "shop-photo">
+              <img src="${encodeURI(shop.shop_extphoto)}" 
+                   alt="${shop.shop_name}" 
+                   
+                   onerror="if (!this.dataset.fallback) { this.src='default.jpg'; this.dataset.fallback = true; } ">
+              </div>
+
+
+              <div class="shop-info">
+                <h2 class="shop-title">${shop.shop_name}</h2>
+                <p>📍 ${shop.shop_loca}</p>
+                <p>🍽️ 메뉴: ${shop.shop_menu}</p>
+                ${type === 'best' 
+                  ? `<p>⭐ 평점: ${Number(shop.combined_avg_star).toFixed(2)}</p>` 
+                  : `<p>👤 혼밥 추천 수: ${shop.solo_good_cnt}</p>`}
+              </div>
+            </div>
+          </a>
+        `;
+        container.appendChild(div);
+      });
+
+      // 버튼 스타일 전환
+      document.getElementById('best-btn').classList.toggle('ranking-active', type === 'best');
+      document.getElementById('best-btn').classList.toggle('ranking-inactive', type !== 'best');
+      document.getElementById('solo-btn').classList.toggle('ranking-active', type === 'solo');
+      document.getElementById('solo-btn').classList.toggle('ranking-inactive', type !== 'solo');
+    }
+
+    document.getElementById('best-btn').addEventListener('click', () => renderRanking('best'));
+    document.getElementById('solo-btn').addEventListener('click', () => renderRanking('solo'));
+
+    document.getElementById('user-menu').addEventListener('click', () => {
+            fetch('checkLogin.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.loggedIn) {
+                        window.location.href = 'mypage.php';
+                    } else {
+                        window.location.href = 'login.php';
+                    }
+                })
+                .catch(err => {
+                    console.error('로그인 상태 확인 실패:', err);
+                    window.location.href = 'login.php'; // 오류 시 기본적으로 로그인 페이지로
+                });
+        });
+
+      // 햄버거 메뉴 토글 기능
+      document.getElementById('burger-btn').addEventListener('click', function() {
+          document.getElementById('side-menu').classList.add('open');
+      });
+      
+      document.getElementById('close-btn').addEventListener('click', function() {
+          document.getElementById('side-menu').classList.remove('open');
+      });
+
+      //이전 페이지로 돌아가기 기능
+      document.getElementById('back-link').addEventListener('click', function(e) {
+          e.preventDefault();
+          window.history.back();
+    
+          document.getElementById('side-menu').classList.remove('open');
+      });
+      
+      // 메뉴 외부 클릭 시 닫기 기능
+      document.addEventListener('click', function(event) {
+          const menu = document.getElementById('side-menu');
+          const burger = document.getElementById('burger-btn');
+          
+          // 메뉴가 열려있고, 클릭된 요소가 메뉴나 햄버거 버튼 자체가 아닐 때
+          if (menu.classList.contains('open') && event.target !== menu && event.target !== burger && !menu.contains(event.target)) {
+              menu.classList.remove('open');
+          }
+      });
+  </script>
+</body>
+</html>

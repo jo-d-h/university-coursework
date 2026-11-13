@@ -1,0 +1,72 @@
+p.307 예제 #1
+#pragma warning(disable:4996)
+#include <stdio.h>
+
+int get_integer()
+{
+	int value;
+	printf("정수를 입력하시오 : ");
+	scanf("%d", &value);
+	return value;
+}
+
+int main(void)
+{
+	int x, y;
+	x = get_integer();
+	y = get_integer();
+	int result = x + y;
+	printf("두수의 합 = %d \n", result);
+
+	return 0;
+}
+---------------------------------------------------
+p.307 예제 #2
+#pragma warning(disable:4996)
+#include <stdio.h>
+
+int get_integer()
+{
+	int value;
+	printf("정수를 입력하시오 : ");
+	scanf("%d", &value);
+	return value;
+}
+
+int get_max(int x, int y)
+{
+	if (x > y) return(x);
+	else return(y);
+}
+
+int main(void)
+{
+	int a, b;
+	a = get_integer();
+	b = get_integer();
+
+	printf("두수 중에서 큰 수는 %d입니다.\n", get_max(a,b));
+
+	return 0;
+}
+------------------------------------------------------
+p.313 온도변환함수
+#pragma warning(disable:4996)
+#include <stdio.h>
+double FtoC(double temp_f);
+
+int main(void)
+{
+	double c, f;
+	f = 32.0;
+	c = FtoC(f);
+	printf("화씨온도 %lf는 섭씨온도 %lf에 해당됩니다.\n", f, c);
+	return 0;
+}
+
+double FtoC(double temp_f)
+{
+	double temp_c;
+	temp_c = (5.0 * (temp_f - 32.0)) / 9.0;
+	return temp_c;
+}

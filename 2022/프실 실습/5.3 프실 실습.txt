@@ -1,0 +1,161 @@
+p.168 예제1
+#include <stdio.h>
+
+int main(void) {
+	int temp;
+	
+	printf("온도를 입력하시오 : ");
+	scanf("%d", &temp);
+	
+	if (temp >= 0) {
+		printf("영상입니다\n");	
+		printf("옷을 얇게 입으세요\n");
+}
+	
+	else {
+		printf("영하입니다\n");
+		printf("옷을 두껍게 입으세요\n");
+}
+	
+	printf("현재 온도는 %d도 입니다\n", temp);
+	return 0;
+}
+
+p.169 예제2
+#include <stdio.h>
+
+int main(void) {
+	int number;
+	
+	printf("정수를 입력하시오 : ");
+	scanf("%d", &number);
+	
+	if (number % 2 == 0)
+	printf("입력한 정수는 짝수입니다!\n");
+	else
+	printf("입력한 정수는 홀수입니다!\n");
+	
+	return 0;
+}
+
+p.168 응용
+#include <stdio.h>
+
+int main(void) {
+	int number;
+	
+	//printf("정수를 입력하시오 : ");
+	//scanf("%d", &number);
+	srand(time(NULL));
+	
+	number = rand();
+	printf("number = %d\n", number);
+	
+	if (number % 2 == 0)
+	printf("입력한 정수는 짝수입니다!\n");
+	else
+	printf("입력한 정수는 홀수입니다!\n");
+	
+	return 0;
+}
+
+p.168 응용2
+#include <stdio.h>
+
+int main(void) {
+	int number;
+	
+	//printf("정수를 입력하시오 : ");
+	//scanf("%d", &number);
+	srand(time(NULL));
+	
+	number = rand();
+	printf("number = %d\n", number%6+1);
+	
+	return 0;
+}
+
+p.176
+#include <stdio.h>
+
+int main(void) {
+	int num;
+	
+	printf("정수를 입력하시오 : ");
+	scanf("%d", &num);
+	
+	if( num >= 0 && num <= 100 )
+		printf("입력한 정수가 0과 100 사이에 있습니다.");
+	
+	else 
+		printf("입력한 정수가 0과 100 사이에 없습니다.");
+	
+	return 0;
+}
+
+p.184
+ #include <stdio.h>
+
+int main(void) {
+	int score;
+	char grade;
+	
+	printf("성적을 입력하시오 : ");
+	scanf("%d", &score);
+	
+	if (score>=90)
+		grade = 'A';
+	else if (score>=80)
+		grade = 'B';
+	else if (score>=70)
+		grade = 'C';
+	else if (score>=60)
+		grade = 'D';
+	else
+		grade = 'F';
+	
+	printf("당신의 학점은 %c입니다\n", grade);
+	return 0;
+}
+
+변형
+#include <stdio.h>
+
+int main(void) {
+	int score;
+	char grade;
+	
+	printf("성적을 입력하시오 : ");
+	scanf("%d", &score);
+	
+	if (score>=90)
+		grade = 'A';
+	else if (score<70 && score>=60)
+		grade = 'D';
+	else if (score<80 && score>=70)
+		grade = 'C';
+	else if (score<90 && score>=80)
+		grade = 'B';
+	else
+		grade = 'F';
+	
+	printf("당신의 학점은 %c입니다\n", grade);
+	return 0;
+}
+
+p.187
+#include <stdio.h>
+
+int main(void) {
+	int a, b, c, largest;
+	
+	printf("정수 3개를 입력하시오 : ");
+	scanf("%d %d %d", &a, &b, &c);
+	
+	largest = a;
+	if(largest < b) largest = b;
+	if(largest < c) largest = c;
+	
+	printf("가장 큰 정수는 %d 입니다.\n", largest);
+	return 0;
+}

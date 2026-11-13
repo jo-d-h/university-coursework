@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="StyleSheet" href="./table.css" type="text/css" />
+
+<table>
+  <colgroup><col width=180><col width=180><col width=180><col width=180><col width=180></colgroup>
+    <tr align=center><th>팀명</th><td colspan=2>밥도둑</td><th>제출일</th><td>2025.12.02</td></tr>
+    <tr align=center><th>작성자</th><td>20213025 이현승</td><td>20223156 조동현</td><td>20223123 이승환</td><td></td></tr>
+    <tr align=center><th>제안서 제목</th><td colspan=4>교내 식당 정보 제공 및 실시간 평가지표 제공 웹사이트</td></tr>
+    <tr><th>제안서 내용</th><td colspan=4 style='border-bottom : 1px solid white;'></td></tr>
+    <tr><td colspan=5><br/>
+
+      <p>1. 프로젝트 개요
+        <div class=box>
+          <p>
+            "밥도둑" 프로젝트는 동의대생의 교내 식사 문제를 해결하기 위해, 분산되어 있는 식당 정보를 한곳에 모아 제공하고 실시간 리뷰 및 평점 정보를 활용하여 보다 편리하게 식사 결정을 내릴 수 있도록 하기 위해 만들어졌다.
+            이 프로젝트는 HTML/CSS/JavaScript 기반의 프론트엔드, PHP와 MySQL 기반의 백엔드, 그리고 직접 수집한 리뷰와 이미지 데이터를 활용한 데이터베이스로 구성되어 있다.
+        </div>
+      </p>   
+      <br/>
+
+      <p>2. 데이터 설명</p>
+      <div class="box">
+        <p>이 프로젝트에서 사용된 데이터베이스는 총 5개의 테이블로 구성되어 있으며, 각 테이블의 구조와 역할은 아래 표와 같다.</p>
+
+        <p>2.1 users 테이블 – 회원 계정 정보 저장</p>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr><th>이름</th><th>타입</th><th>역할</th></tr>
+          <tr><td>id</td><td>INT</td><td>회원 고유 ID</td></tr>
+          <tr><td>username</td><td>VARCHAR(50)</td><td>로그인용 사용자 ID</td></tr>
+          <tr><td>email</td><td>VARCHAR(100)</td><td>회원 이메일</td></tr>
+          <tr><td>nickname</td><td>VARCHAR(50)</td><td>사이트에서 표시되는 닉네임</td></tr>
+          <tr><td>password</td><td>VARCHAR(255)</td><td>비밀번호 - 암호화 저장(bcrypt)</td></tr>
+          <tr><td>is_admin</td><td>TINYINT</td><td>관리자 여부(1=관리자/0=일반 사용자)</td></tr>
+          <tr><td>created_at</td><td>TIMESTAMP</td><td>계정 생성일</td></tr>
+        </table>
+
+        <p>2.2 shops 테이블 – 가게 기본 정보 및 통계 데이터 저장</p>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr><th>이름</th><th>타입</th><th>역할</th></tr>
+          <tr><td>id</td><td>INT</td><td>가게 고유 ID</td></tr>
+          <tr><td>list_num</td><td>INT</td><td>사이트 내 식당 고유 번호</td></tr>
+          <tr><td>shop_name</td><td>VARCHAR(100)</td><td>가게명</td></tr>
+          <tr><td>shop_menu</td><td>VARCHAR(255)</td><td>대표 메뉴</td></tr>
+          <tr><td>shop_keyword</td><td>VARCHAR(255)</td><td>검색용 키워드</td></tr>
+          <tr><td>shop_loca</td><td>VARCHAR(255)</td><td>위치(건물/층)</td></tr>
+          <tr><td>shop_time</td><td>VARCHAR(255)</td><td>영업시간 정보</td></tr>
+          <tr><td>shop_callnum</td><td>VARCHAR(255)</td><td>연락처</td></tr>
+          <tr><td>shop_sns</td><td>VARCHAR(255)</td><td>SNS/홈페이지 URL</td></tr>
+          <tr><td>shop_n_rat</td><td>FLOAT</td><td>네이버 평점</td></tr>
+          <tr><td>shop_n_rev</td><td>INT</td><td>네이버 리뷰 수</td></tr>
+          <tr><td>site_avg_star</td><td>FLOAT</td><td>사이트 리뷰 평균 평점</td></tr>
+          <tr><td>site_review_cnt</td><td>INT</td><td>사이트 리뷰 수</td></tr>
+          <tr><td>solo_good_cnt</td><td>INT</td><td>혼밥 추천 리뷰 개수</td></tr>
+          <tr><td>combined_review_cnt</td><td>INT</td><td>네이버+사이트 통합 리뷰 수</td></tr>
+          <tr><td>combined_avg_star</td><td>FLOAT</td><td>통합 평균 평점</td></tr>
+          <tr><td>shop_extphoto</td><td>VARCHAR(255)</td><td>외관 사진</td></tr>
+          <tr><td>shop_intphoto</td><td>VARCHAR(255)</td><td>내부 사진</td></tr>
+          <tr><td>shop_menuphoto</td><td>VARCHAR(255)</td><td>메뉴 사진</td></tr>
+          <tr><td>shop_alon</td><td>TINYINT</td><td>혼밥 가능 여부</td></tr>
+        </table>
+
+        <p>2.3 reviews 테이블 – 네이버 & 사이트 리뷰 통합 저장</p>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr><th>이름</th><th>타입</th><th>역할</th></tr>
+          <tr><td>id</td><td>INT</td><td>리뷰 고유 ID</td></tr>
+          <tr><td>shop_id</td><td>INT</td><td>가게 ID</td></tr>
+          <tr><td>shop_name</td><td>VARCHAR(100)</td><td>가게 이름</td></tr>
+          <tr><td>user_id</td><td>INT</td><td>작성자 ID</td></tr>
+          <tr><td>source_id</td><td>TINYINT</td><td>리뷰 출처(1=네이버, 2=사이트)</td></tr>
+          <tr><td>reviewer_nickname</td><td>VARCHAR(50)</td><td>작성자 닉네임</td></tr>
+          <tr><td>reviewer_image</td><td>VARCHAR(255)</td><td>작성자 이미지</td></tr>
+          <tr><td>content</td><td>TEXT</td><td>리뷰 내용</td></tr>
+          <tr><td>good_point</td><td>VARCHAR(100)</td><td>한줄평(좋았던 점)</td></tr>
+          <tr><td>each_visit</td><td>VARCHAR(50)</td><td>방문 횟수</td></tr>
+          <tr><td>star</td><td>TINYINT</td><td>별점</td></tr>
+          <tr><td>created_at</td><td>VARCHAR(50)</td><td>작성일</td></tr>
+        </table>
+
+        <p>2.4 naver_reviews 테이블 – 네이버 리뷰만 별도로 저장</p>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr><th>이름</th><th>타입</th><th>역할</th></tr>
+          <tr><td>id</td><td>INT</td><td>네이버 리뷰 ID</td></tr>
+          <tr><td>shop_id</td><td>INT</td><td>가게 ID</td></tr>
+          <tr><td>shop_name</td><td>VARCHAR(100)</td><td>가게명</td></tr>
+          <tr><td>reviewer_nickname</td><td>VARCHAR(50)</td><td>작성자 이름</td></tr>
+          <tr><td>reviewer_image</td><td>VARCHAR(255)</td><td>프로필 이미지</td></tr>
+          <tr><td>content</td><td>TEXT</td><td>리뷰 내용</td></tr>
+          <tr><td>good_point</td><td>VARCHAR(100)</td><td>한줄평(좋았던 점)</td></tr>
+          <tr><td>each_visit</td><td>VARCHAR(50)</td><td>방문 횟수</td></tr>
+          <tr><td>star</td><td>TINYINT</td><td>별점</td></tr>
+          <tr><td>created_at</td><td>VARCHAR(50)</td><td>작성일</td></tr>
+        </table>
+
+        <p>2.5 review_sources 테이블 – 리뷰 출처 코드 저장(네이버/맛도둑)</p>
+        <table border="1" cellspacing="0" cellpadding="5">
+          <tr><th>이름</th><th>타입</th><th>역할</th></tr>
+          <tr><td>id</td><td>TINYINT</td><td>출처 코드</td></tr>
+          <tr><td>code</td><td>VARCHAR(20)</td><td>내부 코드명 (naver/local)</td></tr>
+          <tr><td>name_ko</td><td>VARCHAR(50)</td><td>표시용 이름 (네이버/맛도둑)</td></tr>
+        </table>
+      </div>
+      <br/>
+
+      <p>3. 화면설계</p>
+        <p style='margin-left:20px;'>
+          <a href="mainpage.png" target="_blank">3.1 메인 페이지</a>
+          <ul type=circle style="margin-left: 20px;">
+            <li><p>검색창</p></li>
+            <li><p>메뉴 및 장소 선택 버튼</p></li>
+            <li><p>인기 랭킹 및 혼밥랭킹</p></li>
+          </ul>
+        </p>
+
+        <p style='margin-left:20px;'>
+          <a href="searchpage.png" target="_blank">3.2 검색 페이지</a>
+          <ul type=circle style="margin-left: 20px;">
+            <li><p>검색 결과 리스트(가게 정보 표시)</p></li>
+          </ul>
+        </p>
+
+        <p style='margin-left:20px;'>
+          <a href="rankingpage.png" target="_blank">3.3 랭킹 페이지</a>
+          <ul type=circle style="margin-left: 20px;">
+              <li><p>각 랭킹 별 가게 순위 및 정보(사진, 위치, 메뉴, 평점)</p></li>
+          </ul>
+        </p>
+
+        <p style='margin-left:20px;'>
+          <a href="detailpage.png" target="_blank">3.4 가게 상세 페이지</a>
+            <ul type=circle style="margin-left: 20px;">
+              <li><p>가게 기본 정보(사진, 메뉴, 위치, SNS, 영업시간, 혼밥추천)</p></li>
+              <li><p>평점 및 리뷰 섹션</p></li>
+          </ul>
+        </p>
+
+        <p style='margin-left:20px;'>
+          <a href="review.png" target="_blank">3.5 리뷰 작성/수정 페이지</a>
+            <ul type=circle style="margin-left: 20px;">
+              <li><p>한줄평, 별점, 사진(선택) 및 내용 입력</p></li>
+          </ul>
+        </p>
+
+        <p style='margin-left:20px;'>
+          <a href="loginpage.png" target="_blank">3.6 로그인 페이지</a>
+            <ul type=circle style="margin-left: 20px;">
+              <li><p>아이디 및 패스워드 입력</p></li>
+              <li><p>회원가입 링크</p></li>
+          </ul>        
+        </p>
+
+        <p style='margin-left:20px;'>
+          <a href="signup.png" target="_blank">3.7 회원가입 페이지</a>
+            <ul type=circle style="margin-left: 20px;">
+              <li><p>아이디, 이메일, 닉네임 및 패스워드 기입</p></li>
+          </ul>        
+        </p>
+
+        <p style='margin-left:20px;'>
+          <a href="mypage.png" target="_blank">3.8 마이 페이지</a>
+            <ul type=circle style="margin-left: 20px;">
+              <li><p>사용자 정보 표시</p></li>
+              <li><p>작성한 리뷰 목록 표시</p></li>
+              <li><p>(관리자 계정일 경우) 관리자 페이지 이동 버튼</p></li>
+          </ul> 
+        </p>       
+
+        <p style='margin-left:20px;'>
+          <a href="editprofile.png" target="_blank">3.9 개인정보 수정 페이지</a>
+            <ul type=circle style="margin-left: 20px;">
+              <li><p>닉네임, 이메일 및 패스워드 수정</p></li>
+            </ul>
+        </p>
+
+        <p style='margin-left:20px;'>
+          <a href="adminpage.png" target="_blank">3.10 관리자 페이지(관리자 계정에서만 접근 가능)</a>
+            <ul type=circle style="margin-left: 20px;">
+              <li><p>회원 목록 표시 및 관리자 설정, 강제 탈퇴</p></li>
+              <li><p>리뷰 목록 표시 및 강제 삭제</p></li>
+            </ul>        
+        </p>
+        <br/>
+        
+        <p>4. 기능목록</p>
+        <p style='margin-left:20px;'>4.1 검색 기능</p>
+        <ul type=circle style="margin-left: 20px;">
+          <li><p>가게명, 메뉴명, 검색 키워드 기반 다중 조건 검색 기능 구현</p></li>
+          <li><p>검색 결과에서 가게 이미지, 위치, 평점, 영업시간 등의 요약 정보를 즉시 확인 가능</p></li>
+        </ul>
+
+        <p style='margin-left:20px;'>4.2 랭킹 기능</p>
+        <ul type=circle style="margin-left: 20px;">
+          <li><p>네이버 리뷰와 사이트 자체 리뷰를 통합한 평점 및 리뷰 수 기반 랭킹 산출</p></li>
+          <li><p>평점을 기반으로 한 맛집 랭킹, 혼밥 추천 리뷰 수를 기반으로 한 혼밥 랭킹 2가지의 랭킹 제공</p></li>
+        </ul>
+
+        <p style='margin-left:20px;'>4.3 리뷰 기능</p>
+        <ul type=circle style="margin-left: 20px;">
+          <li><p>사이트 내 리뷰 작성, 수정, 삭제 기능 제공</p></li>
+          <li><p>별점, 한줄평, 상세 후기, 사진 업로드 기능 포함</p></li>
+          <li><p>사진 업로드 시 파일 형식 제한 적용하여 안정성 확보</p></li>
+          <li><p>리뷰는 최신순으로 정렬되며, 가게의 평균 평점 및 리뷰 수 자동 반영</p></li>
+        </ul>
+
+        <p style='margin-left:20px;'>4.4 혼밥 추천 기능</p>
+        <ul type=circle style="margin-left: 20px;">
+          <li><p>리뷰 작성 시 한줄평에 '혼밥하기 좋아요' 선택 시 혼밥 추천 수(solo_good_cnt) 증가</p></li>
+          <li><p>DB에서 혼밥 가능 여부(shop_alon)가 1로 설정된 가게만 혼밥 추천 O로 표시</p></li>
+          <li><p>혼밥 지표는 혼밥 랭킹 페이지 및 가게 상세 페이지에서 표시</p></li>
+        </ul>
+
+        <p style='margin-left:20px;'>4.5 회원 기능</p>
+        <ul type=circle style="margin-left: 20px;">
+          <li><p>회원가입, 로그인, 로그아웃 기능 (비밀번호는 bcrypt로 암호화 저장)</p></li>
+          <li><p>세션 및 쿠키를 이용한 로그인 상태 유지</p></li>
+          <li><p>마이페이지에서 이메일/닉네임/비밀번호 수정 가능</p></li>
+          <li><p>사용자가 작성한 리뷰 목록 조회 및 수정/삭제 가능</p></li>
+        </ul>
+
+        <p style='margin-left:20px;'>4.6 관리자 기능</p>
+        <ul type=circle style="margin-left: 20px;">
+          <li><p>회원 목록 관리: 관리자 권한 부여/해제, 사용자 강제 탈퇴 기능 제공</p></li>
+          <li><p>사이트 리뷰 전체 조회 및 부적절한 리뷰 강제 삭제 기능</p></li>
+          <li><p>리뷰 삭제 시 가게의 평균 평점, 리뷰 개수 등 통계 값 자동 갱신</p></li>
+        </ul>
+
+        <p style='margin-left:20px;'>4.7 데이터베이스 백업 및 업데이트 기능</p>
+        <ul type=circle style="margin-left: 20px;">
+          <li><p>mysqldump를 활용한 DB 전체 백업 기능 구현</p></li>
+          <li><p>관리자 페이지에서 최신 백업 파일 업데이트 기능 제공</p></li>
+          <li><p>웹 환경에서 버튼 클릭만으로 안전하게 DB 관리 가능하도록 구현</p></li>
+        </ul>
+        <br/>
+
+      <p>5. 점검 시나리오</p>
+      <p style="margin-left:20px;">5.1 시나리오 1 : 검색 기능</p>
+      <ol style="margin-left:20px;">
+        <li><p>메인 페이지에서 사용자가 '컵밥'을 검색한다</p></li>
+        <li><p>검색 페이지에서 표시된 컵밥 매장을 확인하고, 표시된 매장 중 한 곳을 클릭한다</p></li>
+        <li><p>가게 상세 페이지에서 표시되는 기본 정보들이 올바른지 확인한다(SNS 링크, 메뉴 사진, 영업시간 등)</p></li>
+      </ol>
+
+      <p style="margin-left:20px;">5.2 시나리오 2 : 회원가입 및 리뷰, 랭킹 기능</p>
+      <ol style="margin-left:20px;">
+        <li><p>메인페이지에서 오른쪽 상단의 마이페이지 버튼을 클릭한다</p></li>
+        <li><p>로그인 페이지에서 회원가입 버튼을 클릭한다</p></li>
+        <li><p>회원가입 페이지에서 필요한 정보를 기입하고 회원가입을 완료한다</p></li>
+        <li><p>가입된 계정으로 로그인 후, 평점이 없는 가게 중 한 곳을 선택한다</p></li>
+        <li><p>가게 상세 페이지에서 리뷰 작성 버튼을 클릭하고 리뷰를 작성한다(한줄평은 '혼밥하기 좋아요')</p></li>
+        <li><p>메인 페이지로 이동 후, 맛집 랭킹 및 혼밥 랭킹 페이지에서 리뷰 갯수 및 순위가 정상적으로 반영되었는지 확인한다</p></li>
+      </ol>
+
+      <p style="margin-left:20px;">5.3 시나리오 3 : 마이페이지 및 관리자 기능</p>
+      <ol style="margin-left:20px;">
+        <li><p>기존 로그인 된 계정에서 로그아웃 후, 메인페이지에서 오른쪽 상단의 마이페이지 버튼을 클릭한다</p></li>
+        <li><p>로그인 페이지에서 관리자 계정으로 로그인한다 (아이디/비밀번호: admin)</p></li>
+        <li><p>마이 페이지에서 개인정보 수정을 클릭하여 개인정보를 변경한 후 정상적으로 수정되었는지 확인한다</p></li>
+        <li><p>마이 페이지에서 오른쪽 하단의 관리자 페이지로 이동한다</p></li>
+        <li><p>관리자 페이지에서 사용자가 쓴 리뷰를 확인하고 강제 삭제를 수행한다</p></li>
+        <li><p>관리자 페이지의 사용자 관리 탭에서 사용자 목록을 확인하고 특정 사용자를 선택하여 관리자 부여 및 삭제, 강제 탈퇴를 수행한다</p></li>
+        <li><p>가게 상세 페이지로 이동하여 리뷰가 정상적으로 삭제되었는지 확인한다</p></li>
+      </ol>
+      <br/>
+
+      <p>6. 생성형 AI(ChatGPT 등) 사용 영역</p>
+      <ul type=circle style="margin-left: 20px;">
+        <li><p>php 코드의 데이터베이스 연동 기초 부분에서 도움 받음</p></li>
+        <li><p>로그인 기능에서 쿠키와 세션 연동 과정에 도움 받음</p></li>
+        <li><p>CSS에서 아이콘 및 배경 일러스트 생성/적용에 도움 받음</p></li>
+      </ul>
+      <br/>
+
+      <p>7. 데이터베이스의 수집</p>
+      <ul type=circle style="margin-left: 20px;">
+        <li><p>음식점 리스트의 가게 기초정보는 네이버 지도, 카카오맵, 에브리타임, 배달의 민족에서 수집</p></li>
+        <li><p>가게 이미지는 직접 사진 촬영 및 저작권 없는 이미지로 수집</p></li>
+        <li><p>리뷰 데이터는 네이버 지도에서 웹크롤러 프로그램을 이용해 수집</p></li>
+      </ul>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>자연연역 연습장</title>
+</head>
+<body>
+    <h1>자연연역 연습장</h1>
+    <p>자연연역을 연습할 수 있는 공간입니다. 아래에 문제를 입력하고 복합명제를 추가하세요.</p>
+    <textarea name="" id="problem-statements" cols="80" rows="5">아담이 백만장자라면, 가난은 이브가 그의 청혼을 거절한 이유가 아니다.
+그런데 이브가 그의 청혼을 거절한 이유는 아담이 가난하다는 것 또는 그가 매력이 없다는 것 둘 중의 하나이다.
+아담은 백만장자이다. 그러므로 매력이 없다는 것이 아담이 청혼을 거절당한 이유임에 틀림없다.</textarea>
+    <form action="#" >
+        <input type="text" id="new-compound" placeholder="복합명제를 입력하세요." />
+        <button type="button" id="add-compound-btn">추가</button>
+    </form>
+    <div><ol type="1" id="compound-list"></ol></div>
+
+    <form action="#" >
+        <input type="text" id="new-primary" placeholder="단순명제를 입력하세요." />
+        <button type="button" id="add-primary-btn">추가</button>
+    </form>
+    <div><ol type="A" id="primary-list"></ol></div>
+
+    <form action="#" >
+        <input class="input1" type="text" id="new-symbolic" placeholder="기호명제를 입력하세요." required/>
+        <input class="input2" type="text" id="ns1" required/>
+        <input class="input2" type="text" id="ns2" />
+        <input class="input2" type="text" id="ns3" />
+        <select id="natual-deduction-rule">
+            <option value="전제">전제</option>
+            <option value="결론">결론</option>
+            <option value=" → 제거">조건기호제거 (→제거)</option>
+            <option value="∨ 제거">선언기호제거 (∨제거)</option>
+            <option value="∨ 도입">선언기호도입 (∨도입)</option>
+            <option value="→ 도입">조건기호도입 (→도입)</option>
+            <option value="∧ 제거">연언기호제거 (∧제거)</option>
+            <option value="∧ 도입">연언기호도입 (∧도입)</option>
+            <option value="↔ 도입">쌍조건기호도입 (↔도입)</option>
+            <option value="↔ 제거">쌍조건기호제거 (↔제거)</option>
+            <option value="∼ 제거">부정기호제거 (∼제거)</option>
+            <option value="∼ 도입">부정기호도입 (∼도입)</option>
+        </select>
+        <br/>
+
+        &nbsp;&nbsp;<button type="button" id="add-symbolic-btn">추가</button>
+<!--    <button type="button" id="add-conclusion-btn">결론</button> -->
+        <button disabled type="button"  id="open-assumption-btn">가정 [[</button>
+        <button disabled type="button" id="close-assumption-btn">]] 가정</button>
+        <button type="button" id="not-btn">∼</button>
+        <button type="button" id="and-btn">∧</button>
+        <button type="button" id="or-btn">∨</button>
+        <button type="button" id="imp-btn">→</button>
+        <button type="button" id="bi-imp-btn">↔</button>
+    </form>
+    <div><ol type="1" id="symbolic-list"></ol></div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+</body>
+</html>

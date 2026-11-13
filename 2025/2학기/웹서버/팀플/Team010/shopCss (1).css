@@ -1,0 +1,312 @@
+ 
+        a {
+            text-decoration: none;
+            color: inherit; /* 링크 색상도 일반 텍스트처럼 */
+        }
+
+        /* 검색 결과 css 추가 */
+        .shop-card {
+            max-width: 800px;
+            margin: 40px auto 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            min-height: 220px;
+            
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+        }
+        #shop-list {
+            max-width: 1200px;
+            margin: 0 auto; 
+            padding: 0 40px;
+        }
+
+        .shop-title {
+            font-size: 1.8em;
+            font-weight: normal;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .shop-content {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start; 
+            flex-wrap: nowrap;
+        }
+
+        .shop-photo img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: #4d7fff 3px solid;
+        }
+
+        .shop-info {
+            flex: 1;
+            text-align: left;
+            min-width: 500px;
+            font-size: 1.3em;
+            line-height: 0.5;
+        }
+        .shop-info p {
+            margin: 4px 0;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+        body.wide-layout {
+            max-width: none;
+        }
+
+        .error_massage{
+            width: 100%;
+            text-align: center;
+            padding: auto;
+            font-size: 30px;
+        }
+
+
+        /*이승환 추가*/
+
+
+        .title{
+            font-size: 3.0em;
+            width: 800px;
+            height: 100px;
+            padding-top: 5px;
+            color: black;
+
+            margin: auto;
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        body {
+           font-family: 'Jua', sans-serif;
+           background-color: #f8f8f8;
+           font-weight: normal;
+           max-width: 1200px; 
+           margin: auto;
+        }
+
+                /*현재 활성화 된 랭킹 버튼 */
+        .ranking-active {
+            font-family: inherit;
+            font-size: 1.1em;
+            color: #333;
+            background-color: white;
+            border: 2px solid #4d7fff;
+            border-radius: 30px;
+            padding: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+        }
+        /*현재 비활성화 된 랭킹 버튼 */
+        .ranking-inactive {
+            font-family: inherit;
+            color: black;
+            font-size: 0.9em;
+            background-color: #d4d4d4;
+            border: 2px solid #686868;
+            border-radius: 30px;
+            padding: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+        }
+
+        .ranking-active:hover{
+            cursor: pointer;
+        }
+
+        .ranking-inactive:hover{
+            cursor: pointer;
+        }
+
+      
+        .ranking-toggle{
+            margin: auto;
+            height: auto;
+            max-width: 800px;
+        }
+
+        .ranking-tier{
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            color: #4d7fff;
+            font-size: 5em;
+            margin-top: 15px;
+
+            display: flex; 
+            align-items: center; 
+            flex-direction: column; 
+            justify-content: center;
+        }
+
+        .ranking-card {
+            width: 800px;
+            margin: 40px auto 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            min-height: 220px;
+            
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+        }
+
+        #ranking-container {
+            max-width: 1200px; 
+            margin: auto; 
+            margin-top: -35px;
+            padding: 10px;
+        }
+
+
+        .header-table {
+            background-color: #fff;
+            height: 90px;
+            width: 1200px;
+            margin: auto;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+        }
+
+        .header-table td {
+            height: 100%; 
+            padding: 0 10px; 
+            border: none; 
+            vertical-align: middle; 
+        }
+
+        /* 로고 박스 및 이미지 */
+        .header-logoBox {
+            width: 60px; 
+            padding-left: 0; 
+        }
+
+        .header-logo {
+            width: 60px; 
+            height: auto;
+            margin-left: 10px;
+        }
+
+        .header-title {
+            width: auto; 
+            text-align: center;
+        }
+
+        .header-title p {
+            font-size: 50px; 
+            margin: 0; 
+            color: #333;
+            
+        }
+
+        .header-title p:hover{
+            cursor: pointer;
+        }
+
+        .user-menu {
+            width: 60px; 
+            text-align: right; 
+            padding-right: 0;
+        }
+
+        .user-logo {
+            width: 45px;
+            height: 45px;
+            margin-right: 10px;
+        }
+        
+        .user-logo:hover{
+            cursor: pointer;
+        }
+
+        .copyright-section {
+            text-align: center; 
+            font-size: 0.7em; 
+            color: #999; 
+            margin-top: 10px;
+            padding: 20px 0 70px 0;
+        }
+
+
+        /*햄버거 버튼*/
+
+        .header-burgerBox {
+            width: 40px; 
+            padding-right: 0;
+            text-align: left;
+        }
+        .burger-btn {
+        font-size: 2em;
+        padding: 5px 10px;
+        cursor: pointer;
+        color: #333;
+        line-height: 1;
+        user-select: none; /* 드래그 방지 */
+        }
+
+        /*햄버거 메뉴*/
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: 0;
+            background-color: #333; 
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+        }
+
+        .side-menu a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #f1f1f1;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-menu a:hover {
+            color: #4d7fff;
+            background-color: #555;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .side-menu.open {
+            width: 250px;
+        }
+
+        .box {
+            border: 2px solid #4d7fff;
+            max-width: 1000px;
+            margin: auto;
+            margin-top: 20px;
+            border-radius: 20px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+
+
+

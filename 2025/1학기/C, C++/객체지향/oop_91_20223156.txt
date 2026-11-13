@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+// Point 클래스
+class Point {
+private:
+    int x, y;
+public:
+    Point(int x = 0, int y = 0) : x(x), y(y) {}
+    void show() const {
+        cout << "(" << x << ", " << y << ")";
+    }
+};
+
+// Shape 클래스
+class Shape {
+public:
+    virtual void Draw() const {
+        cout << "도형 그린다" << endl;
+    }
+    virtual ~Shape() {}
+};
+
+// Line 클래스
+class Line : public Shape {
+private:
+    Point start, end;
+public:
+    Line(int x1, int y1, int x2, int y2) : start(x1, y1), end(x2, y2) {}
+    virtual void Draw() const {
+        cout << "직선 그린다: ";
+        start.show();
+        cout << " -> ";
+        end.show();
+        cout << endl;
+    }
+};
+
+// Circle 클래스
+class Circle : public Shape {
+private:
+    Point center, boundary;
+public:
+    Circle(int x1, int y1, int x2, int y2) : center(x1, y1), boundary(x2, y2) {}
+    virtual void Draw() const {
+        cout << "원 그린다: ";
+        center.show();
+        cout << " -> ";
+        boundary.show();
+        cout << endl;
+    }
+};
+
+int main() {
+    Circle a(1, 1, 5, 5);
+    Line b(5, 5, 9, 9);
+
+    a.Draw(); // 직접 호출
+    b.Draw(); // 직접 호출
+
+    // 다형성 테스트
+    Shape* p;
+    p = new Line(10, 10, 100, 100);
+    p->Draw(); // Line의 Draw 호출됨
+    delete p;
+
+    p = new Circle(100, 100, 200, 200);
+    p->Draw(); // Circle의 Draw 호출됨
+    delete p;
+
+    return 0;
+}

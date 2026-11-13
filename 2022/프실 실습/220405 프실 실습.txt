@@ -1,0 +1,62 @@
+p.93 기호상수
+#include <stdio.h>
+#define Exchange_Rate	1200
+
+int main(int argc, char *argv[]) {
+	int dollar;
+	int won;
+	
+	printf("환전할 달러를 입력하세요 : ");
+	scanf("%d", &dollar);
+	
+	won = Exchange_Rate * dollar;
+	
+	printf("%d 달러는 %d 원 입니다.", dollar, won); 
+	return 0;
+}
+
+p.98 변수의 값 교환하기
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+	int first = 100; // 1번 컵 
+	int second = 200; // 2번 컵 
+	
+	//아래의 결과는 first : 100, second : 200이 출력됨 
+	printf("first : %d second : %d\n",first, second);
+	
+	//아래에 first와 second의 값을 바꾸는 부분을 완성하시오.
+	int temp; // 빈 컵 
+	temp = first; // 1번컵의 내용물을 temp에 저장 
+	first = second; // 2번컵의 내용물을 1번컵에 덮어씀 
+	second = temp; // temp에 있던 1번 내용물을 2번컵에 덮어씀 
+	
+	
+	// 아래의 결과는 first : 200 second : 100이 출력됨
+	printf("first : %d second : %d\n", first, second);
+}
+
+p.101 부동소수점
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+	float test = 3.141592;
+	
+	printf("%.1f", test);
+	return 0;
+}
+
+p.110 원의 넓이 구하기
+#include <stdio.h>
+#define PI	3.14
+int main(int argc, char *argv[]) {
+	int r;
+	float area; 
+	printf("반지름 : ");
+	scanf("%d",&r);
+	
+	area = r * r * PI;
+	
+	printf("area : %.0f", area);
+	return 0;
+}

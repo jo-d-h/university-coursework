@@ -1,0 +1,315 @@
+        body {
+            font-family: 'Jua', sans-serif;
+            font-weight: normal;
+            margin: 0 auto;
+            max-width: 1200px; 
+            background-color: #f8f8f8;
+            padding: 0 15px; /* 양옆 여백 */
+        }
+        
+        /* 모든 테이블에 적용되는 기본 스타일 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            background-color: white;
+            border: none;
+        }
+        td {
+            padding: 10px;
+            vertical-align: top;
+            border: none;
+        }
+        h3 {
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+            padding-left: 5px;
+            color: #333;
+        }
+
+        button, select, input, textarea {
+            font-family: inherit;
+        }
+
+        .review-box p, .review-box select, .review-box textarea, .review-box input {
+            font-family: inherit;
+        }
+
+/* 1. 상단 바 (Header)*/
+        .header-table {
+            background-color: #fff;
+            height: 90px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+
+        .header-table td {
+            height: 100%; 
+            padding: 0 10px; 
+            border: none; 
+            vertical-align: middle; 
+        }
+
+        /* 로고 박스 및 이미지 */
+        .header-logoBox {
+            width: 60px; 
+            padding-left: 0; 
+        }
+
+        .header-logo {
+            width: 60px; 
+            height: auto;
+            margin-left: 10px;
+        }
+
+        .header-title {
+            width: auto; 
+            text-align: center;
+        }
+
+        .header-title p {
+            font-size: 50px; 
+            margin: 0; 
+            color: #333;
+            
+        }
+
+        .header-title p:hover{
+            cursor: pointer;
+        }
+
+
+        /* 유저 메뉴 */
+        .user-menu {
+            width: 60px; 
+            text-align: right; 
+            padding-right: 0;
+        }
+
+        .user-logo {
+            width: 45px;
+            height: 45px;
+            margin-right: 10px;
+        }
+        
+        .user-logo:hover{
+            cursor: pointer;
+        }
+
+
+        /* 2. 검색 영역 */
+        .search-section {
+            padding-top: 15px;
+            background-color: #f8f8f8;
+        }
+
+        /*앱 설명 */
+        .search-info p {
+            margin: 3px 0;
+            font-size: 20px;
+            color: #444;
+        }
+        .search-bar-wrapper {
+            display: flex;
+            align-items: center;
+            border: 2px solid #4d7fff; /* 포인트 색상 */
+            border-radius: 25px;
+            padding: 8px 15px;
+            margin-top: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+        .search-icon {
+            color: #4d7fff;
+            font-size: 1.2em;
+            padding-right: 8px;
+        }
+        .search-input {
+            border: none;
+            width: 100%;
+            font-size: 1em;
+            outline: none;
+        }
+     
+        /* 3. 카테고리/버튼 스타일 */
+        .category-table {
+            border-radius: 8px;
+            margin-top: -10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+            height: 200px;
+            width: 100%;
+        }
+        .category-table td {
+            text-align: center;
+            padding: 15px 5px;
+            width: auto;
+        }
+        .category-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border: 3px solid #4d7fff; 
+            border-radius: 50%; /* 원형 버튼 */
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 5px auto;
+            font-size: 2em;
+            color: #333;
+            font-weight: bold;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+
+        .category-button:hover{
+            cursor: pointer;
+
+            border: 8px solid #4d7fff; 
+            width: 120px;
+            height: 120px;
+            box-shadow: 0 2px 4px rgba(0,0,0,1);
+        }
+
+        .category-label {
+            font-size: 20px;
+            color: #555;
+        }
+
+        .category-image {
+            width: 100%;
+            height: 100%;
+        }
+
+        .question{
+            font-size: 20px;
+            color: #333;
+        }
+
+        /* 4. 추천 목록 (맛집/장소 바) */
+        .recommend-header {
+            display: flex; /* Flex를 사용하여 항목을 한 줄에 정렬 */
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 25px 0 10px 0;
+            padding: 0 5px;
+        }
+
+        /* 밑에 랭킹버튼 가능하다면 자바스크립트로 교차 구현 해주세용 */
+
+        /*현재 활성화 된 랭킹 버튼 */
+        .ranking-active {
+            font-weight: normal;
+            font-size: 1.1em;
+            color: #333;
+            background-color: white;
+            border: 2px solid #4d7fff;
+            border-radius: 30px;
+            padding: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+        /*현재 비활성화 된 랭킹 버튼 */
+        .ranking-inactive {
+            font-weight: normal; 
+            color: black;
+            font-size: 0.9em;
+            background-color: #d4d4d4;
+            border: 2px solid #686868;
+            border-radius: 30px;
+            padding: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+
+        .ranking-active:hover{
+            cursor: pointer;
+        }
+
+        .ranking-inactive:hover{
+            cursor: pointer;
+        }
+
+
+        /*더보기*/
+        .more-button {
+            font-size: 0.8em;
+            color: black;
+            font-weight: bold;
+            font-weight: normal;
+        }
+
+        .more-button:hover{
+            cursor: pointer;
+        }
+
+        /* 5. 추천 항목 목록 */
+        .item-list-table {
+            box-shadow: none;
+            background-color: transparent;
+            padding: 10px;
+            max-width: 100%;
+            height: 300px;
+        }
+        .item-list-table td {
+            width: 25%; 
+            padding: 8px; 
+            vertical-align: top;
+        }
+
+        .item-box {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            height: 220px;
+            width: 260px;
+            margin: auto;
+        }
+
+        .item-image {
+            background-color: #f0f0f0;
+            height: 140px;
+            text-align: center;
+            line-height: 70px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            color: #888;
+            font-size: 0.8em;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+        }
+        .item-info p {
+            margin: 1px 0;
+            font-size: 20px;
+        }
+        .item-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9em;
+            margin-top: 5px !important;
+        }
+        .item-tags {
+            color: #4d7fff; /* 태그에 포인트 색상 */
+        }
+
+
+        /* 6. 정보 */
+        .copyright-section {
+            text-align: center; 
+            font-size: 0.7em; 
+            color: #999; 
+            margin-top: 10px;
+            padding: 20px 0 70px 0; /* 고정된 푸터 때문에 하단 여백 추가 */
+        }
+
+        .copyright-section:hover {
+            cursor: pointer;
+        }
+
+        /* 메인 페이지 랭킹 사진 추가 */
+        .ranking-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }

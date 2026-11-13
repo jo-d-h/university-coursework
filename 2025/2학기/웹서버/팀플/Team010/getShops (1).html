@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>장소별 맛집</title>
+  <link rel="stylesheet" href="shopCss.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+</head>
+<body class="wide-layout">
+
+  <body>
+    <div class="side-menu" id="side-menu">
+        <a href="#" id="back-link">⬅️ 이전 페이지로</a>
+        </br>
+        <a href="index.php">홈🏠</a>
+        </br>
+        <a href="ranking.html">랭킹👑</a>
+        </br>
+        <button class="close-btn" id="close-btn">&times;</button>
+    </div>
+
+  <table class="header-table">
+        <tr>
+            <td class="header-burgerBox">
+            <div class="burger-btn" id="burger-btn">
+                &#9776; </div>
+            </td>
+            <td class="header-logoBox">
+                <img src="deulogo.png" alt="동의대로고" class="header-logo">
+            </td>
+
+            <td class="header-title" onclick="location.href='index.php'">
+                <p>밥도둑</p>
+            </td>
+
+            <td class="user-menu" id="user-menu">
+                 <img src="사용자.png" alt="사용자" class="user-logo"> 
+            </td>
+        </tr>
+    </table>
+
+  <div class="box">
+
+  <div id="place-title" class="title">장소별 맛집</div>
+  <div id="shop-list" style="max-width: 1200px; margin: 0 auto; padding: 0 40px;"></div>
+
+  </div>
+  
+  <div class="copyright-section">
+        <p>팀원: 20223123 이승환, 20213025 이현승, 20223156 조동현</p>
+        <p>프로젝트: 밥도둑</p>
+    </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const locationName = params.get('location');
+    const keyword = params.get('keyword');
+    const search = params.get('search');
+
+    // 제목 설정
+    const titleText = search
+      ? `"${search}" 검색 결과`
+      : keyword
+        ? `${keyword} 관련 맛집`
+        : locationName === '기타'
+          ? '기타 맛집'
+          : `${locationName} 맛집 리스트`;
+    document.getElementById('place-title').innerText = titleText;
+
+    // 요청 URL 결정
+    const queryParam = search
+      ? `search=${encodeURIComponent(search)}`
+      : keyword
+        ? `keyword=${encodeURIComponent(keyword)}`
+        : `location=${encodeURIComponent(locationName || '')}`;
+
+    fetch(`getShops.php?${queryParam}`)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('shop-list');
+        if (data.length === 0) {
+          container.innerHTML = "<div class='error_massage'><p>해당 조건에 맞는 가게가 없습니다.❌</p></div>";
+          return;
+        }
+
+        data.forEach(shop => {
+          const div = document.createElement('div');
+          div.className = 'shop-card';
+
+          const callInfo = shop.shop_callnum ? `<p>📞 ${shop.shop_callnum}</p>` : '';
+          const snsInfo = shop.shop_sns ? `<p>🔗 <a href="${shop.shop_sns}" target="_blank">${shop.shop_sns}</a></p>` : '';
+
+          div.innerHTML = `
+            <a href="shop_detail.php?id=${shop.id}" class="shop-link">
+              <div class="shop-content">
+                <div class="shop-photo">
+                  <img src="${shop.shop_extphoto}" alt="${shop.shop_name}">
+                </div>
+                <div class="shop-info">
+                  <h2 class="shop-title">${shop.shop_name}</h2>
+                  <p>📍 ${shop.shop_loca}</p>
+                  <p>🍽️ 메뉴: ${shop.shop_menu}</p>
+                  <p>⭐ 평점: ${shop.combined_avg_star} / 리뷰 수: ${shop.combined_review_cnt}</p>
+                </div>
+              </div>
+            </a>
+            
+          `;
+          container.appendChild(div);
+        });
+      });
+
+      document.getElementById('user-menu').addEventListener('click', () => {
+            fetch('checkLogin.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.loggedIn) {
+                        window.location.href = 'mypage.php';
+                    } else {
+                        window.location.href = 'login.php';
+                    }
+                })
+                .catch(err => {
+                    console.error('로그인 상태 확인 실패:', err);
+                    window.location.href = 'login.php'; // 오류 시 기본적으로 로그인 페이지로
+                });
+        });
+
+      // 햄버거 메뉴 토글 기능
+      document.getElementById('burger-btn').addEventListener('click', function() {
+          document.getElementById('side-menu').classList.add('open');
+      });
+      
+      document.getElementById('close-btn').addEventListener('click', function() {
+          document.getElementById('side-menu').classList.remove('open');
+      });
+
+      //이전 페이지로 돌아가기 기능
+      document.getElementById('back-link').addEventListener('click', function(e) {
+          e.preventDefault();
+          window.history.back();
+    
+          document.getElementById('side-menu').classList.remove('open');
+      });
+      
+      // 메뉴 외부 클릭 시 닫기 기능
+      document.addEventListener('click', function(event) {
+          const menu = document.getElementById('side-menu');
+          const burger = document.getElementById('burger-btn');
+          
+          // 메뉴가 열려있고, 클릭된 요소가 메뉴나 햄버거 버튼 자체가 아닐 때
+          if (menu.classList.contains('open') && event.target !== menu && event.target !== burger && !menu.contains(event.target)) {
+              menu.classList.remove('open');
+          }
+      });
+  </script>
+</body>
+</html>
